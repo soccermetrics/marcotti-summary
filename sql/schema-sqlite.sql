@@ -361,4 +361,162 @@ CREATE TABLE tbl_keyplays (
     goalkicks   integer DEFAULT 0 CHECK (goalkicks >= 0),
     setplays    integer DEFAULT 0 CHECK (setplays >= 0)
     );
+    
+CREATE TABLE tbl_passes (
+    summary_id          integer PRIMARY KEY,
+    lineup_id           integer REFERENCES tbl_lineups,
+    total_success       integer DEFAULT 0 CHECK (total_success >= 0),
+    total_failure       integer DEFAULT 0 CHECK (total_failure >= 0),
+    total_no_cc_success integer DEFAULT 0 CHECK (total_no_cc_success >= 0),
+    total_no_cc_failure integer DEFAULT 0 CHECK (total_no_cc_failure >= 0),
+    longball_success    integer DEFAULT 0 CHECK (longball_success >= 0),
+    longball_failure    integer DEFAULT 0 CHECK (longball_failure >= 0),
+    layoffs_success     integer DEFAULT 0 CHECK (layoffs_success >= 0),
+    layoffs_failure     integer DEFAULT 0 CHECK (layoffs_failure >= 0),
+    throughballs        integer DEFAULT 0 CHECK (throughballs >= 0)
+    );
+
+CREATE TABLE tbl_passdirections (
+    summary_id      integer PRIMARY KEY,
+    lineup_id       integer REFERENCES tbl_lineups,
+    pass_forward    integer DEFAULT 0 CHECK (pass_forward >= 0),
+    pass_backward   integer DEFAULT 0 CHECK (pass_backward >= 0),
+    pass_left       integer DEFAULT 0 CHECK (pass_left >= 0),
+    pass_right      integer DEFAULT 0 CHECK (pass_right >= 0)
+    );
+
+CREATE TABLE tbl_passlengths (
+    summary_id      integer PRIMARY KEY,
+    lineup_id       integer REFERENCES tbl_lineups,
+    short_success   integer DEFAULT 0 CHECK (short_success >= 0),
+    short_failure   integer DEFAULT 0 CHECK (short_failure >= 0),
+    long_success    integer DEFAULT 0 CHECK (long_success >= 0),
+    long_failure    integer DEFAULT 0 CHECK (long_failure >= 0),
+    flickon_success integer DEFAULT 0 CHECK (flickon_success >= 0),
+    flickon_failure integer DEFAULT 0 CHECK (flickon_failure >= 0)
+    );
+
+CREATE TABLE tbl_passlocations (
+    summary_id       integer PRIMARY KEY,
+    lineup_id        integer REFERENCES tbl_lineups,
+    ownhalf_success  integer DEFAULT 0 CHECK (ownhalf_success >= 0),
+    ownhalf_failure  integer DEFAULT 0 CHECK (ownhalf_failure >= 0),
+    opphalf_success  integer DEFAULT 0 CHECK (opphalf_success >= 0),
+    opphalf_failure  integer DEFAULT 0 CHECK (opphalf_failure >= 0),
+    defthird_success integer DEFAULT 0 CHECK (defthird_success >= 0),
+    defthird_failure integer DEFAULT 0 CHECK (defthird_failure >= 0),
+    midthird_success integer DEFAULT 0 CHECK (midthird_success >= 0),
+    midthird_failure integer DEFAULT 0 CHECK (midthird_failure >= 0),
+    finthird_success integer DEFAULT 0 CHECK (finthird_success >= 0),
+    finthird_failure integer DEFAULT 0 CHECK (finthird_failure >= 0)
+    );
+
+CREATE TABLE tbl_penaltyactions (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    taken       integer DEFAULT 0 CHECK (taken >= 0),
+    saved       integer DEFAULT 0 CHECK (saved >= 0),
+    offtarget   integer DEFAULT 0 CHECK (offtarget >= 0),
+    ontarget    integer DEFAULT 0 CHECK (ontarget >= 0)
+    );
+
+CREATE TABLE tbl_shotbodyparts (
+    summary_id      integer PRIMARY KEY,
+    lineup_id       integer REFERENCES tbl_lineups,
+    head_ontarget   integer DEFAULT 0 CHECK (head_ontarget >= 0),
+    head_offtarget  integer DEFAULT 0 CHECK (head_offtarget >= 0),
+    left_ontarget   integer DEFAULT 0 CHECK (left_ontarget >= 0),
+    left_offtarget  integer DEFAULT 0 CHECK (left_offtarget >= 0),
+    right_ontarget  integer DEFAULT 0 CHECK (right_ontarget >= 0),   
+    right_offtarget integer DEFAULT 0 CHECK (right_offtarget >= 0)    
+    );
+
+CREATE TABLE tbl_shotblocks (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    insidebox   integer DEFAULT 0 CHECK (insidebox >= 0),
+    outsidebox  integer DEFAULT 0 CHECK (outsidebox >= 0),
+    headed      integer DEFAULT 0 CHECK (headed >= 0),
+    leftfoot    integer DEFAULT 0 CHECK (leftfoot >= 0),
+    rightfoot   integer DEFAULT 0 CHECK (rightfoot >= 0),    
+    other       integer DEFAULT 0 CHECK (other >= 0),    
+    total       integer DEFAULT 0 CHECK (total >= 0)   
+    );
+    
+CREATE TABLE tbl_goallineclearances (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    insidebox   integer DEFAULT 0 CHECK (insidebox >= 0),
+    outsidebox  integer DEFAULT 0 CHECK (outsidebox >= 0),
+    totalshots  integer DEFAULT 0 CHECK (totalshots >= 0)
+    );
+    
+CREATE TABLE tbl_shotlocations (
+    summary_id           integer PRIMARY KEY,
+    lineup_id            integer REFERENCES tbl_lineups,
+    insidebox_ontarget   integer DEFAULT 0 CHECK (insidebox_ontarget >= 0),
+    insidebox_offtarget  integer DEFAULT 0 CHECK (insidebox_offtarget >= 0),
+    outsidebox_ontarget  integer DEFAULT 0 CHECK (outsidebox_ontarget >= 0),
+    outsidebox_offtarget integer DEFAULT 0 CHECK (outsidebox_offtarget >= 0)
+    );
+
+CREATE TABLE tbl_shottotals (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    ontarget    integer DEFAULT 0 CHECK (ontarget >= 0),
+    offtarget   integer DEFAULT 0 CHECK (offtarget >= 0),
+    bigchances  integer DEFAULT 0 CHECK (bigchances >= 0)  
+    );
+
+CREATE TABLE tbl_shotplays (
+    summary_id          integer PRIMARY KEY,
+    lineup_id           integer REFERENCES tbl_lineups,
+    openplay_ontarget   integer DEFAULT 0 CHECK (openplay_ontarget >= 0),
+    openplay_offtarget  integer DEFAULT 0 CHECK (openplay_offtarget >= 0),
+    setplay_ontarget    integer DEFAULT 0 CHECK (setplay_ontarget >= 0),
+    setplay_offtarget   integer DEFAULT 0 CHECK (setplay_offtarget >= 0),
+    freekick_ontarget   integer DEFAULT 0 CHECK (freekick_ontarget >= 0),
+    freekick_offtarget  integer DEFAULT 0 CHECK (freekick_offtarget >= 0),
+    corners_ontarget    integer DEFAULT 0 CHECK (corners_ontarget >= 0),
+    corners_offtarget   integer DEFAULT 0 CHECK (corners_offtarget >= 0),
+    throwins_ontarget   integer DEFAULT 0 CHECK (throwins_ontarget >= 0),
+    throwins_offtarget  integer DEFAULT 0 CHECK (throwins_offtarget >= 0),
+    other_ontarget      integer DEFAULT 0 CHECK (other_ontarget >= 0),
+    other_offtarget     integer DEFAULT 0 CHECK (other_offtarget >= 0)
+    );
+    
+CREATE TABLE tbl_tackles (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    won    integer DEFAULT 0 CHECK (won >= 0),
+    lost   integer DEFAULT 0 CHECK (lost >= 0),
+    lastman  integer DEFAULT 0 CHECK (lastman >= 0)  
+    );
+    
+CREATE TABLE tbl_throwins (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    teamplayer  integer DEFAULT 0 CHECK (teamplayer >= 0),
+    oppplayer   integer DEFAULT 0 CHECK (oppplayer >= 0)
+    );
+
+CREATE TABLE tbl_touches (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    dribble_overruns   integer DEFAULT 0 CHECK (dribble_overruns >= 0),
+    dribble_success   integer DEFAULT 0 CHECK (dribble_success >= 0),
+    dribble_failure   integer DEFAULT 0 CHECK (dribble_failure >= 0),
+    balltouch_success   integer DEFAULT 0 CHECK (balltouch_success >= 0),
+    balltouch_failure   integer DEFAULT 0 CHECK (balltouch_failure >= 0),
+    possession_loss integer DEFAULT 0 CHECK (possession_loss >= 0),
+    total  integer DEFAULT 0 CHECK (total >= 0)
+    );
+
+CREATE TABLE tbl_touchlocations (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    finalthird  integer DEFAULT 0 CHECK (finalthird >= 0),
+    oppbox      integer DEFAULT 0 CHECK (oppbox >= 0),
+    oppsix      integer DEFAULT 0 CHECK (oppsix >= 0)
+    );
 
