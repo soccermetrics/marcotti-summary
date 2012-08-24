@@ -212,5 +212,76 @@ CREATE TABLE tbl_outsubstitutions (
 -- Summary Statistics Tables
 -- -------------------------------------------------
 
+CREATE TABLE tbl_totalgoals (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    firstgoal   boolean DEFAULT FALSE,
+    winner      boolean DEFAULT FALSE,
+    freekick    integer DEFAULT 0 CHECK (freekick >= 0),
+    openplay    integer DEFAULT 0 CHECK (openplay >= 0),
+    corners     integer DEFAULT 0 CHECK (corners >= 0),
+    throwins    integer DEFAULT 0 CHECK (throwins >= 0),
+    penalties   integer DEFAULT 0 CHECK (penalties >= 0),
+    substitute  integer DEFAULT 0 CHECK (substitute >= 0),
+    other       integer DEFAULT 0 CHECK (other >= 0)
+    );
 
+CREATE TABLE tbl_assists (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    corners     integer DEFAULT 0 CHECK (corners >= 0),
+    freekicks   integer DEFAULT 0 CHECK (freekicks >= 0),
+    throwins    integer DEFAULT 0 CHECK (throwins >= 0),
+    goalkicks   integer DEFAULT 0 CHECK (goalkicks >= 0),
+    setpieces   integer DEFAULT 0 CHECK (setpieces >= 0),
+    total       integer DEFAULT 0 CHECK (total >= 0)
+    );
+    
+CREATE TABLE tbl_clearances (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    headed      integer DEFAULT 0 CHECK (headed >= 0),
+    goalline    integer DEFAULT 0 CHECK (goalline >= 0),
+    other       integer DEFAULT 0 CHECK (other >= 0),
+    total       integer DEFAULT 0 CHECK (total >= 0)    
+    );
+    
+CREATE TABLE tbl_corners (
+    summary_id      integer PRIMARY KEY,
+    lineup_id       integer REFERENCES tbl_lineups,
+    penbox_success  integer DEFAULT 0 CHECK (penbox_success >= 0),
+    penbox_failure  integer DEFAULT 0 CHECK (penbox_failure >= 0),
+    left_success    integer DEFAULT 0 CHECK (left_success >= 0),
+    left_failure    integer DEFAULT 0 CHECK (left_failure >= 0),
+    right_success   integer DEFAULT 0 CHECK (right_success >= 0),
+    right_failure   integer DEFAULT 0 CHECK (right_failure >= 0),
+    short           integer DEFAULT 0 CHECK (short >= 0),
+    total           integer DEFAULT 0 CHECK (total >= 0)    
+    );
+    
+CREATE TABLE tbl_cornercrosses (
+    summary_id      integer PRIMARY KEY,
+    lineup_id       integer REFERENCES tbl_lineups,
+    total_success   integer DEFAULT 0 CHECK (total_success >= 0),
+    total_failure   integer DEFAULT 0 CHECK (total_failure >= 0),
+    air_success     integer DEFAULT 0 CHECK (air_success >= 0),
+    air_failure     integer DEFAULT 0 CHECK (air_failure >= 0),
+    left_success    integer DEFAULT 0 CHECK (left_success >= 0),
+    left_failure    integer DEFAULT 0 CHECK (left_failure >= 0),
+    right_success   integer DEFAULT 0 CHECK (right_success >= 0),
+    right_failure   integer DEFAULT 0 CHECK (right_failure >= 0),
+    );
+
+CREATE TABLE tbl_crosses (
+    total_success   integer DEFAULT 0 CHECK (total_success >= 0),
+    total_failure   integer DEFAULT 0 CHECK (total_failure >= 0),
+    air_success     integer DEFAULT 0 CHECK (air_success >= 0),
+    air_failure     integer DEFAULT 0 CHECK (air_failure >= 0),
+    openplay_success   integer DEFAULT 0 CHECK (openplay_success >= 0),
+    openplay_failure   integer DEFAULT 0 CHECK (openplay_failure >= 0),
+    left_success    integer DEFAULT 0 CHECK (left_success >= 0),
+    left_failure    integer DEFAULT 0 CHECK (left_failure >= 0),
+    right_success   integer DEFAULT 0 CHECK (right_success >= 0),
+    right_failure   integer DEFAULT 0 CHECK (right_failure >= 0),
+    );
 
