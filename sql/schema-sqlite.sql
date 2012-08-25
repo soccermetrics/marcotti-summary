@@ -32,7 +32,7 @@ CREATE TABLE tbl_positions (
 CREATE TABLE tbl_players (
 	player_id		integer PRIMARY KEY,
 	country_id		integer REFERENCES tbl_countries(country_id),
-	plyr_birthdate  text NOT NULL,
+	plyr_birthdate  text DEFAULT '0000-00-00',
 	plyr_firstname	varchar(20) NOT NULL,
 	plyr_lastname	varchar(30) NOT NULL,
 	plyr_nickname	varchar(30) NULL,
@@ -43,7 +43,7 @@ CREATE TABLE tbl_players (
 CREATE TABLE tbl_managers (
 	manager_id			integer PRIMARY KEY,
 	country_id			integer REFERENCES tbl_countries(country_id),
-	mgr_birthdate	    text NOT NULL,
+	mgr_birthdate	    text DEFAULT '0000-00-00',
 	mgr_firstname		varchar(20) NOT NULL,
 	mgr_lastname		varchar(30) NOT NULL,
 	mgr_nickname		varchar(30) NULL
@@ -53,7 +53,7 @@ CREATE TABLE tbl_managers (
 CREATE TABLE tbl_referees (
 	referee_id			integer PRIMARY KEY,
 	country_id			integer REFERENCES tbl_countries(country_id),
-	ref_birthdate		text NOT NULL,
+	ref_birthdate		text DEFAULT '0000-00-00',
 	ref_firstname		varchar(20) NOT NULL,
 	ref_lastname		varchar(30) NOT NULL
 	);
@@ -64,8 +64,14 @@ CREATE TABLE tbl_referees (
 
 -- Competitions table
 CREATE TABLE tbl_competitions (
-	competition_id	integer PRIMARY KEY,
-	comp_name		varchar(100) NOT NULL
+	competition_id	    integer PRIMARY KEY,
+	competition_name	varchar(100) NOT NULL
+	);
+	
+-- Seasons table
+CREATE TABLE tbl_seasons (
+	season_id	integer PRIMARY KEY,
+	season_name	varchar(20) NOT NULL
 	);
 	
 -- (League) Rounds table	
@@ -212,20 +218,6 @@ CREATE TABLE tbl_outsubstitutions (
 -- Summary Statistics Tables
 -- -------------------------------------------------
 
-CREATE TABLE tbl_totalgoals (
-    summary_id  integer PRIMARY KEY,
-    lineup_id   integer REFERENCES tbl_lineups,
-    firstgoal   boolean DEFAULT FALSE,
-    winner      boolean DEFAULT FALSE,
-    freekick    integer DEFAULT 0 CHECK (freekick >= 0),
-    openplay    integer DEFAULT 0 CHECK (openplay >= 0),
-    corners     integer DEFAULT 0 CHECK (corners >= 0),
-    throwins    integer DEFAULT 0 CHECK (throwins >= 0),
-    penalties   integer DEFAULT 0 CHECK (penalties >= 0),
-    substitute  integer DEFAULT 0 CHECK (substitute >= 0),
-    other       integer DEFAULT 0 CHECK (other >= 0)
-    );
-
 CREATE TABLE tbl_assists (
     summary_id  integer PRIMARY KEY,
     lineup_id   integer REFERENCES tbl_lineups,
@@ -335,6 +327,40 @@ CREATE TABLE tbl_freekicks (
     ontarget    integer DEFAULT 0 CHECK (ontarget >= 0),
     offtarget   integer DEFAULT 0 CHECK (offtarget >= 0)
     );
+
+CREATE TABLE tbl_gkallowedgoals (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    insidebox   integer DEFAULT 0 CHECK (insidebox >= 0),
+    outsidebox  integer DEFAULT 0 CHECK (outsidebox >= 0),
+    cleansheet  boolean DEFAULT FALSE    
+    );
+    
+CREATE TABLE tbl_gksaves (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    insidebox   integer DEFAULT 0 CHECK (insidebox >= 0),
+    outsidebox  integer DEFAULT 0 CHECK (outsidebox >= 0),
+    penalty     integer DEFAULT 0 CHECK (penalty >= 0)    
+    );
+    
+CREATE TABLE tbl_gkallowedshots (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    insidebox   integer DEFAULT 0 CHECK (insidebox >= 0),
+    outsidebox  integer DEFAULT 0 CHECK (outsidebox >= 0),
+    bigchances  integer DEFAULT 0 CHECK (bigchances >= 0)    
+    );
+    
+CREATE TABLE tbl_gkactions (
+    summary_id      integer PRIMARY KEY,
+    lineup_id       integer REFERENCES tbl_lineups,
+    catches         integer DEFAULT 0 CHECK (catches >= 0),
+    punches         integer DEFAULT 0 CHECK (punches >= 0),
+    crosses_noclaim integer DEFAULT 0 CHECK (crosses_noclaim >= 0),
+    distrib_success integer DEFAULT 0 CHECK (distrib_success >= 0),
+    distrib_failure integer DEFAULT 0 CHECK (distrib_failure >= 0)    
+    );
     
 CREATE TABLE tbl_goalbodyparts (
     summary_id  integer PRIMARY KEY,
@@ -351,15 +377,27 @@ CREATE TABLE tbl_goallocations (
     outsidebox  integer DEFAULT 0 CHECK (outsidebox >= 0)
     );
     
+CREATE TABLE tbl_goaltotals (
+    summary_id  integer PRIMARY KEY,
+    lineup_id   integer REFERENCES tbl_lineups,
+    firstgoal   boolean DEFAULT FALSE,
+    winner      boolean DEFAULT FALSE,
+    freekick    integer DEFAULT 0 CHECK (freekick >= 0),
+    openplay    integer DEFAULT 0 CHECK (openplay >= 0),
+    corners     integer DEFAULT 0 CHECK (corners >= 0),
+    throwins    integer DEFAULT 0 CHECK (throwins >= 0),
+    penalties   integer DEFAULT 0 CHECK (penalties >= 0),
+    substitute  integer DEFAULT 0 CHECK (substitute >= 0),
+    other       integer DEFAULT 0 CHECK (other >= 0)
+    );
+
 CREATE TABLE tbl_keyplays (
     summary_id  integer PRIMARY KEY,
     lineup_id   integer REFERENCES tbl_lineups,
-    passes      integer DEFAULT 0 CHECK (passes >= 0),
     corners     integer DEFAULT 0 CHECK (corners >= 0)
     freekicks   integer DEFAULT 0 CHECK (freekicks >= 0),
     throwins    integer DEFAULT 0 CHECK (throwins >= 0)
     goalkicks   integer DEFAULT 0 CHECK (goalkicks >= 0),
-    setplays    integer DEFAULT 0 CHECK (setplays >= 0)
     );
     
 CREATE TABLE tbl_passes (
@@ -374,6 +412,7 @@ CREATE TABLE tbl_passes (
     layoffs_success     integer DEFAULT 0 CHECK (layoffs_success >= 0),
     layoffs_failure     integer DEFAULT 0 CHECK (layoffs_failure >= 0),
     throughballs        integer DEFAULT 0 CHECK (throughballs >= 0)
+    keypasses           integer DEFAULT 0 CHECK (keypasses >= 0),
     );
 
 CREATE TABLE tbl_passdirections (
