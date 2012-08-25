@@ -394,12 +394,10 @@ CREATE TABLE tbl_goaltotals (
 CREATE TABLE tbl_keyplays (
     summary_id  integer PRIMARY KEY,
     lineup_id   integer REFERENCES tbl_lineups,
-    passes      integer DEFAULT 0 CHECK (passes >= 0),
     corners     integer DEFAULT 0 CHECK (corners >= 0)
     freekicks   integer DEFAULT 0 CHECK (freekicks >= 0),
     throwins    integer DEFAULT 0 CHECK (throwins >= 0)
     goalkicks   integer DEFAULT 0 CHECK (goalkicks >= 0),
-    setplays    integer DEFAULT 0 CHECK (setplays >= 0)
     );
     
 CREATE TABLE tbl_passes (
@@ -414,6 +412,7 @@ CREATE TABLE tbl_passes (
     layoffs_success     integer DEFAULT 0 CHECK (layoffs_success >= 0),
     layoffs_failure     integer DEFAULT 0 CHECK (layoffs_failure >= 0),
     throughballs        integer DEFAULT 0 CHECK (throughballs >= 0)
+    keypasses           integer DEFAULT 0 CHECK (keypasses >= 0),
     );
 
 CREATE TABLE tbl_passdirections (
