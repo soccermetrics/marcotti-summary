@@ -32,7 +32,7 @@ CREATE TABLE tbl_positions (
 CREATE TABLE tbl_players (
 	player_id		integer PRIMARY KEY,
 	country_id		integer REFERENCES tbl_countries(country_id),
-	plyr_birthdate  text NOT NULL,
+	plyr_birthdate  text DEFAULT '0000-00-00',
 	plyr_firstname	varchar(20) NOT NULL,
 	plyr_lastname	varchar(30) NOT NULL,
 	plyr_nickname	varchar(30) NULL,
@@ -43,7 +43,7 @@ CREATE TABLE tbl_players (
 CREATE TABLE tbl_managers (
 	manager_id			integer PRIMARY KEY,
 	country_id			integer REFERENCES tbl_countries(country_id),
-	mgr_birthdate	    text NOT NULL,
+	mgr_birthdate	    text DEFAULT '0000-00-00',
 	mgr_firstname		varchar(20) NOT NULL,
 	mgr_lastname		varchar(30) NOT NULL,
 	mgr_nickname		varchar(30) NULL
@@ -53,7 +53,7 @@ CREATE TABLE tbl_managers (
 CREATE TABLE tbl_referees (
 	referee_id			integer PRIMARY KEY,
 	country_id			integer REFERENCES tbl_countries(country_id),
-	ref_birthdate		text NOT NULL,
+	ref_birthdate		text DEFAULT '0000-00-00',
 	ref_firstname		varchar(20) NOT NULL,
 	ref_lastname		varchar(30) NOT NULL
 	);
