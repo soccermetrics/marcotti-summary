@@ -64,8 +64,14 @@ CREATE TABLE tbl_referees (
 
 -- Competitions table
 CREATE TABLE tbl_competitions (
-	competition_id	integer PRIMARY KEY,
-	comp_name		varchar(100) NOT NULL
+	competition_id	    integer PRIMARY KEY,
+	competition_name	varchar(100) NOT NULL
+	);
+	
+-- Seasons table
+CREATE TABLE tbl_seasons (
+	season_id	integer PRIMARY KEY,
+	season_name	varchar(20) NOT NULL
 	);
 	
 -- (League) Rounds table	
