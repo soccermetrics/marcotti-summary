@@ -1,6 +1,8 @@
 FMRD-Summary
 ============
 
+_Note: This repository is no longer supported and will be removed soon.  Marcotti-Summary models have been merged into [Marcotti](https://github.com/soccermetrics/marcotti)._
+
 SQL definitions for FMRD-Summary schema.  
 
 Historical match data plus summary statistics of in-match events.
